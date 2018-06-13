@@ -2,6 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7adfb8"
-    tools:context=".MainActivity" >
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_8"
+        android:textColor="@color/black"
+        android:textSize="@dimen/H3"
+        android:layout_centerInParent="true"
+        android:text="ACTION"/>
 </RelativeLayout>
