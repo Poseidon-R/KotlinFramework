@@ -10,7 +10,7 @@ android {
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.zhangxiangzeng.frameworkproject"
+        applicationId "com.robot.design"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
@@ -22,6 +22,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    sourceSets{
+        main.java.srcDirs = ['src/main/java','src/main/kotlin']
     }
 }
 
