@@ -1,6 +1,8 @@
 package com.robot.design.module
 
 import android.app.Application
+import com.robot.design.App
+import com.robot.design.otto.MainBus
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -24,6 +26,12 @@ class AppModule(var application: Application) {
     @Singleton
     fun providesApplication(): Application {
         return application
+    }
+
+    @Provides
+    @Singleton
+    fun providesBus(): MainBus {
+        return (application as App).getBusInstance()
     }
 
 }

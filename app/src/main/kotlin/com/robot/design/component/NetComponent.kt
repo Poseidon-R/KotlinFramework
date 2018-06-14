@@ -1,8 +1,8 @@
 package com.robot.design.component
 
-import com.robot.design.MainActivity
 import com.robot.design.module.AppModule
 import com.robot.design.module.NetModule
+import com.robot.design.ui.MainActivity
 import dagger.Component
 import javax.inject.Singleton
 

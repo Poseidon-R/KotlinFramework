@@ -5,6 +5,8 @@ import com.robot.design.component.DaggerNetComponent
 import com.robot.design.component.NetComponent
 import com.robot.design.module.AppModule
 import com.robot.design.module.NetModule
+import com.robot.design.otto.MainBus
+import com.squareup.otto.ThreadEnforcer
 
 
 /**
@@ -21,6 +23,7 @@ import com.robot.design.module.NetModule
 class App : Application() {
 
     private lateinit var mNetComponent: NetComponent
+    private val mainBus = MainBus(ThreadEnforcer.ANY)
 
     override fun onCreate() {
         super.onCreate()
@@ -29,6 +32,8 @@ class App : Application() {
                 .netModule(NetModule("http://192.168.8.148:7204"))
                 .build()
     }
+
+    fun getBusInstance() = mainBus
 
     fun getNetComponent(): NetComponent {
         return mNetComponent
