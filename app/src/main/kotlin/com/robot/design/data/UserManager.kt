@@ -2,7 +2,7 @@ package com.robot.design.data
 
 import com.blankj.utilcode.util.ToastUtils
 import com.robot.design.App
-import com.robot.design.rest.async
+import com.robot.lighting.rest.async
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject

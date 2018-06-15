@@ -1,7 +1,6 @@
 package com.robot.design.module
 
 import android.app.Application
-import com.robot.design.rest.RestService
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -66,9 +65,6 @@ class NetModule(var baseUrl: String) {
 
 //    @Provides
 //    fun provideApiService() = provideRetrofit().create(ApiService::class.java)
-
-    @Provides
-    fun provideRestService() = RestService()
 
     companion object {
 

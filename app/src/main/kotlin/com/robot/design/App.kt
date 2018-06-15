@@ -1,11 +1,12 @@
 package com.robot.design
 
 import android.app.Application
+import com.blankj.utilcode.util.Utils
 import com.robot.design.component.DaggerNetComponent
 import com.robot.design.component.NetComponent
 import com.robot.design.module.AppModule
 import com.robot.design.module.NetModule
-import com.robot.design.otto.MainBus
+import com.robot.lighting.utils.MainBus
 import com.squareup.otto.ThreadEnforcer
 
 
@@ -27,6 +28,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Utils.init(this)
         mNetComponent = DaggerNetComponent.builder()
                 .appModule(AppModule(this))
                 .netModule(NetModule("http://192.168.8.148:7204"))

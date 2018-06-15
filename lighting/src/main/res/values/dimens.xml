@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">@dimen/dp_16</dimen>
+    <dimen name="activity_vertical_margin">@dimen/dp_16</dimen>
+
+    <!--添加app中规定字体大小-->
+    <dimen name="H4">@dimen/sp_12</dimen>
+
+    <dimen name="H3">@dimen/sp_14</dimen>
+
+    <dimen name="H2">@dimen/sp_16</dimen>
+
+    <dimen name="H1">@dimen/sp_18</dimen>
+    <!--添加app中规定字体大小-->
+</resources>

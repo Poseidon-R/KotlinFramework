@@ -2,7 +2,7 @@ package com.robot.design.module
 
 import android.app.Application
 import com.robot.design.App
-import com.robot.design.otto.MainBus
+import com.robot.lighting.utils.MainBus
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

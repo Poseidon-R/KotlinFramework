@@ -1,10 +1,10 @@
 package com.robot.design.ui
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.TextView
 import com.robot.design.R
-import com.robot.lighting.widget.BottomSheet
+import com.robot.design.databinding.ActivityDownloadBinding
 
 
 /**
@@ -18,16 +18,11 @@ import com.robot.lighting.widget.BottomSheet
  * </pre>
  * @author majingze
  */
-class MainActivity : AppCompatActivity() {
-
+class DownloadActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        findViewById<TextView>(R.id.action).setOnClickListener {
-            val dialog = BottomSheet()
-            dialog.show(supportFragmentManager,"")
-        }
-
+        val databinding = DataBindingUtil.setContentView<ActivityDownloadBinding>(this, R.layout.activity_download)
     }
+
 }
