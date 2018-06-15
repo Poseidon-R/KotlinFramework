@@ -3,6 +3,7 @@ package com.robot.design.ui
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import com.robot.design.R
 import com.robot.design.databinding.ActivityDownloadBinding
 
@@ -18,11 +19,18 @@ import com.robot.design.databinding.ActivityDownloadBinding
  * </pre>
  * @author majingze
  */
-class DownloadActivity : AppCompatActivity() {
+class DownloadActivity : BaseActivity<ActivityDownloadBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val databinding = DataBindingUtil.setContentView<ActivityDownloadBinding>(this, R.layout.activity_download)
+        initToolBar()
     }
+
+    override fun getLayoutRes(): Int = R.layout.activity_download
+
+    override fun getToolbarTitle(): String = "下载"
+
+    override fun getToolbar(): Toolbar = findViewById(R.id.toolbar)
+
 
 }

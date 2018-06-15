@@ -43,7 +43,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
-
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="colorButtonNormal">@color/buttonWhite</item>
+    </style>
     <style name="downloadFileNameStyle" parent="ww_hw">
         <item name="android:textColor"></item>
     </style>

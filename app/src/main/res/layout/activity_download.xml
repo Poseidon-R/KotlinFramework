@@ -7,38 +7,48 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar" />
+        <include android:id="@+id/toolbar" layout="@layout/toolbar" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/dp_20"
             android:layout_marginLeft="@dimen/dp_16"
-            android:layout_marginRight="@dimen/dp_16">
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_20"
+            android:orientation="vertical">
 
-            <com.robot.lighting.LightingProgressbar
-                android:id="@+id/flikerbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:loadingColor="#40c4ff"
-                app:stopColor="#ff9800"
-                app:textSize="12sp" />
-
-            <Button
+            <TextView
+                android:id="@+id/tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="重新下载" />
+                android:text="爽客Apk下载"
+                android:textColor="@color/captionBlack"
+                android:textSize="@dimen/H4" />
 
             <com.robot.lighting.LightingProgressbar
-                android:id="@+id/round_flikerbar"
+                android:id="@+id/progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:loadingColor="#40c4ff"
-                app:radius="20dp"
+                android:layout_below="@id/tag"
+                android:layout_marginTop="@dimen/dp_8"
+                app:loadingColor="@color/colorPrimary"
+                app:radius="@dimen/dp_8"
                 app:stopColor="#ff9800"
-                app:textSize="12sp" />
-        </LinearLayout>
+                app:textSize="@dimen/H4" />
+
+
+            <Button
+                android:layout_width="@dimen/dp_88"
+                android:layout_height="@dimen/dp_36"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/progress"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@drawable/primary_button"
+                android:text="重新下载"
+                android:textColor="@color/buttonWhite"
+                android:textSize="@dimen/H3" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>
