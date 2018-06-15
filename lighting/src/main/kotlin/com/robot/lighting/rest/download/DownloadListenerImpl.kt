@@ -1,6 +1,7 @@
 package com.robot.lighting.rest.download
 
 import com.robot.lighting.utils.MainBus
+import com.squareup.otto.ThreadEnforcer
 import javax.inject.Inject
 
 
@@ -17,8 +18,7 @@ import javax.inject.Inject
  */
 class DownloadListenerImpl : DownloadListener {
 
-    @Inject
-    lateinit var bus: MainBus
+    private val bus = MainBus(ThreadEnforcer.ANY)
 
     override fun onStartDownload() {
         bus.register(this)
@@ -38,6 +38,5 @@ class DownloadListenerImpl : DownloadListener {
         bus.post(DownloadInfo(0, DownloadState.FAILED))
         bus.unregister(this)
     }
-
 
 }

@@ -1,13 +1,17 @@
 package com.robot.design
 
 import android.app.Application
+import android.os.Environment
 import com.blankj.utilcode.util.Utils
+import com.robot.design.component.AppComponent
+import com.robot.design.component.DaggerAppComponent
 import com.robot.design.component.DaggerNetComponent
 import com.robot.design.component.NetComponent
 import com.robot.design.module.AppModule
 import com.robot.design.module.NetModule
 import com.robot.lighting.utils.MainBus
 import com.squareup.otto.ThreadEnforcer
+import java.io.File
 
 
 /**
@@ -30,8 +34,10 @@ class App : Application() {
         super.onCreate()
         Utils.init(this)
         mNetComponent = DaggerNetComponent.builder()
-                .appModule(AppModule(this))
                 .netModule(NetModule("http://192.168.8.148:7204"))
+                .build()
+        mAppComponent = DaggerAppComponent.builder()
+                .appModule(AppModule(this))
                 .build()
     }
 
@@ -39,5 +45,19 @@ class App : Application() {
 
     fun getNetComponent(): NetComponent {
         return mNetComponent
+    }
+
+
+    companion object {
+        private lateinit var mAppComponent: AppComponent
+
+        @JvmStatic
+        fun getAppComponent() = mAppComponent
+
+        @JvmStatic
+        fun getApkDownloadDirectory(): File {
+            return File(Environment.getExternalStorageDirectory(), "yingyongbao.apk")
+        }
+
     }
 }

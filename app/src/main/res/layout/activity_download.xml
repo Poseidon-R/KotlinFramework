@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.robot.design.viewmodel.DownloadViewModel" />
+    </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical">
 
-        <include android:id="@+id/toolbar" layout="@layout/toolbar" />
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -34,10 +43,12 @@
                 app:loadingColor="@color/colorPrimary"
                 app:radius="@dimen/dp_8"
                 app:stopColor="#ff9800"
-                app:textSize="@dimen/H4" />
+                app:textSize="@dimen/H4"
+                app:download_info="@{viewModel.mDownloadInfo}"/>
 
 
             <Button
+                android:id="@+id/download"
                 android:layout_width="@dimen/dp_88"
                 android:layout_height="@dimen/dp_36"
                 android:layout_alignParentRight="true"

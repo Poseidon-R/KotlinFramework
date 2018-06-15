@@ -24,11 +24,11 @@ import java.util.concurrent.TimeUnit
  */
 class DownloadManager() {
 
-    private val downloadListener = DownloadListenerImpl()
+    private lateinit var downloadListener: DownloadListener
 
-    fun startDownload(downloadUrl: String, baseUrl: String, filePath: String) {
-        downloadListener.onStartDownload()
-        val apiService = createRestClient(baseUrl).create(DownloadService::class.java)
+    fun startDownload(downloadUrl: String, filePath: String, downloadListener: DownloadListener) {
+        this.downloadListener = downloadListener
+        val apiService = createRestClient().create(DownloadService::class.java)
         apiService.dowloadApk(downloadUrl)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -47,7 +47,7 @@ class DownloadManager() {
                 )
     }
 
-    private fun createRestClient(baseUrl: String): Retrofit {
+    private fun createRestClient(): Retrofit {
         val logging = HttpLoggingInterceptor()
         val okHttpClient = OkHttpClient().newBuilder()
                 .connectTimeout(CONNECTION_TIME_OUT, TimeUnit.SECONDS)
@@ -55,11 +55,11 @@ class DownloadManager() {
                 .writeTimeout(WRITE_TIME_OUT, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .addInterceptor(logging)
-                .addInterceptor(DownloadInterceptor(DownloadListenerImpl()))
+                .addInterceptor(DownloadInterceptor(downloadListener))
                 .build()
 
         return Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl("http://www.baidu.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)

@@ -35,7 +35,7 @@ public class LightingProgressbar extends View implements Runnable {
 
     private int borderWidth;
 
-    private float maxProgress = 100f;
+    private float maxProgress = 100;
 
     private Paint textPaint;
 
