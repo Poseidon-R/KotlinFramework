@@ -1,8 +1,7 @@
 package com.robot.design.ui.binding
 
 import android.databinding.BindingAdapter
-import android.view.View
-import com.robot.lighting.LightingProgressbar
+import com.robot.lighting.widget.LightingProgressbar
 import com.robot.lighting.rest.download.DownloadInfo
 import com.robot.lighting.rest.download.DownloadState
 
@@ -28,7 +27,10 @@ object DownloadBinding {
             DownloadState.START -> progress.progress = 0F
             DownloadState.DOWNLOADING -> progress.progress = downloadInfo.progress.toFloat()
             DownloadState.PAUSE -> progress.finishLoad()
-            DownloadState.FINISH -> progress.finishLoad()
+            DownloadState.FINISH -> {
+                progress.progress = 100f
+                progress.finishLoad()
+            }
             else -> {
             }
         }

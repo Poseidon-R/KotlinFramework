@@ -32,6 +32,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        app = this
         Utils.init(this)
         mNetComponent = DaggerNetComponent.builder()
                 .netModule(NetModule("http://192.168.8.148:7204"))
@@ -50,6 +51,7 @@ class App : Application() {
 
     companion object {
         private lateinit var mAppComponent: AppComponent
+        private lateinit var app: App
 
         @JvmStatic
         fun getAppComponent() = mAppComponent
@@ -58,6 +60,9 @@ class App : Application() {
         fun getApkDownloadDirectory(): File {
             return File(Environment.getExternalStorageDirectory(), "yingyongbao.apk")
         }
+
+        @JvmStatic
+        fun getApplication() = app
 
     }
 }

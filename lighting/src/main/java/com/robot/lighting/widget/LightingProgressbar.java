@@ -1,4 +1,4 @@
-package com.robot.lighting;
+package com.robot.lighting.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,6 +15,8 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.robot.lighting.R;
 
 /**
  * <pre>
@@ -156,7 +158,6 @@ public class LightingProgressbar extends View implements Runnable {
         thread = new Thread(this);
         thread.start();
     }
-
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
