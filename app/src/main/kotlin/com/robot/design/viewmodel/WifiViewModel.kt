@@ -9,10 +9,8 @@ import android.content.IntentFilter
 import android.databinding.ObservableField
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
-import android.widget.Toast
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.robot.design.App
@@ -22,6 +20,8 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.subscribeBy
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -38,20 +38,38 @@ import java.util.concurrent.TimeUnit
  */
 class WifiViewModel : AndroidViewModel(App.getApplication()) {
 
-    var wifiInfo = ObservableField<WifiInfo>()
+    private var wifiService = WifiService(getApplication())
+    private var isInit = true
+    private var disposable: Disposable? = null
 
     var wifiResult = ObservableField<List<AccessPoint>>()
+
+    var checked = ObservableField<Boolean>()
+
 
     fun onStart() {
         val filter = IntentFilter()
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
         filter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION)
         getApplication<App>().registerReceiver(wifiReceiver, filter)
+
+        //设置Wifi开关按钮
+        checked.set(wifiService.isOpen())
     }
 
-    fun fetchWifiInfo() {
-        val wifiService = WifiService(getApplication())
-        wifiInfo.set(wifiService.getWifiInfo())
+    fun onCheckedChange() {
+        if (isInit) {
+            isInit = false
+            return
+        }
+        if (wifiService.isOpen()) {
+            wifiService.closeWifi()
+            stopSearch()
+            ToastUtils.showShort("关闭")
+        } else {
+            wifiService.openWifi()
+            ToastUtils.showShort("打开")
+        }
     }
 
     fun startSearchWifi() {
@@ -59,26 +77,21 @@ class WifiViewModel : AndroidViewModel(App.getApplication()) {
                 .callback(object : PermissionUtils.SimpleCallback {
                     override fun onGranted() {
                         val wifiService = WifiService(getApplication())
-                        Observable.interval(2000, TimeUnit.MILLISECONDS)
+                        disposable = Observable.interval(2000, TimeUnit.MILLISECONDS)
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(object : Observer<Long> {
-                                    override fun onSubscribe(disposable: Disposable) {
-                                    }
-
-                                    override fun onNext(number: Long) {
-                                        val result = wifiService.listAccessPoints(getApplication()).map {
-                                            it.value
-                                        }
-                                        wifiResult.set(result)
-                                    }
-
-                                    override fun onError(e: Throwable) {
-
-                                    }
-
-                                    override fun onComplete() {
-                                    }
-                                })
+                                .subscribeBy(
+                                        onNext = {
+                                            val result = wifiService.listAccessPoints(getApplication()).map {
+                                                it.value
+                                            }
+                                            Collections.sort(result) { p0, p1 ->
+                                                return@sort p1.levelGrade - p0.levelGrade
+                                            }
+                                            wifiResult.set(result)
+                                        },
+                                        onError = {},
+                                        onComplete = {}
+                                )
                     }
 
                     override fun onDenied() {
@@ -86,6 +99,13 @@ class WifiViewModel : AndroidViewModel(App.getApplication()) {
                     }
 
                 }).request()
+    }
+
+    fun stopSearch() {
+        if (disposable == null || disposable!!.isDisposed) {
+            return
+        }
+        disposable!!.dispose()
     }
 
     override fun onCleared() {
@@ -97,6 +117,12 @@ class WifiViewModel : AndroidViewModel(App.getApplication()) {
 
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent == null) return
+//            val wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0)
+//            if (wifiState == WifiManager.WIFI_STATE_ENABLING) {
+//                ToastUtils.showShort("打开中...")
+//            } else if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+//                ToastUtils.showShort("关闭中...")
+//            }
 
             if (intent.action == WifiManager.SUPPLICANT_STATE_CHANGED_ACTION) {
                 //wifi连接

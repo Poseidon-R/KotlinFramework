@@ -35,11 +35,13 @@
                 android:textSize="@dimen/H3" />
 
             <android.support.v7.widget.SwitchCompat
+                android:id="@+id/switch_component"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:theme="@style/MySwitchTheme"/>
+                android:theme="@style/MySwitchTheme"
+                android:checked="@{viewModel.checked}" />
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView

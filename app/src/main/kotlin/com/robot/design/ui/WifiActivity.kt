@@ -33,9 +33,9 @@ class WifiActivity : BaseActivity<ActivityWifiBinding>() {
         dataBinding.apply {
             viewModel = obtainViewModel(WifiViewModel::class.java)
             viewModel?.onStart()
-            viewModel?.fetchWifiInfo()
         }
         setUpWifiList()
+        setUpWifiSwitch()
     }
 
     private fun setUpWifiList() {
@@ -46,6 +46,17 @@ class WifiActivity : BaseActivity<ActivityWifiBinding>() {
             adapter = WifiAdapter(R.layout.item_wifi, listOf<AccessPoint>())
 
             viewModel.startSearchWifi()
+        }
+    }
+
+    private fun setUpWifiSwitch() {
+        val viewModel = dataBinding.viewModel ?: return
+
+        dataBinding.switchComponent.apply {
+
+            setOnCheckedChangeListener { compoundButton, b ->
+                viewModel.onCheckedChange()
+            }
         }
     }
 

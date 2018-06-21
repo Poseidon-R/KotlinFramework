@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.net.ConnectivityManager
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import android.net.wifi.aware.WifiAwareManager
@@ -36,6 +37,8 @@ class WifiService(val context: Context) {
         if (wifiManager.isWifiEnabled)
             wifiManager.startScan()
     }
+
+    fun isOpen() = wifiManager.isWifiEnabled
 
     fun openWifi() {
         when (wifiManager.wifiState) {
@@ -116,47 +119,49 @@ class WifiService(val context: Context) {
 
 //        Log.d(LOG_TAG, "Find APs: " + accessPoints.size)
         // Log.d(LOG_TAG, "信号最大：" + maxLevel + " 信号最小：" + minLevel);
-//
-//        val configuredNetworks = wifiManager.configuredNetworks // 会null!
-//        if (configuredNetworks != null) {
-//            for (config in configuredNetworks) {
-//                // Log.d(LOG_TAG, "已配置网络：" + config.SSID);
-//                val SSID = trimQuoteFromSSID(config.SSID)
-//                var accessPoint: AccessPoint? = accessPoints[SSID]
-//                if (accessPoint != null) {
-//                    accessPoint.configured = true
-//                    accessPoint.networkId = config.networkId
-//                }
-//            }
-//        } else {
-//            // TODO(yy) refreshWifiAccessPoints(context);
-//        }
 
-//        val connection = wifiManager.connectionInfo
-//        if (connection != null) {
-////            Log.d(LOG_TAG, "Connected AP：" + connection.ssid)
-//            val SSID = trimQuoteFromSSID(connection.ssid)
-//            val accessPoint = accessPoints[SSID]
-//            if (accessPoint != null) {
-//                accessPoint.ip = connection.ipAddress
-//                accessPoint.connected = true
-//
-//                // 获取 supplicantState
-//                val supplicantState = connection.supplicantState
-//                accessPoint.supplicantState = supplicantState?.toString() ?: ""
-//
-//                // 获取 detailed 状态
-//                val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-//                val info = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-//                if (info != null) {
-//                    val state = info.detailedState
-//                    accessPoint.detailedState = state?.toString() ?: ""
-//                }
-//            }
-//        }
+        val configuredNetworks = wifiManager.configuredNetworks // 会null!
+        if (configuredNetworks != null) {
+            for (config in configuredNetworks) {
+                // Log.d(LOG_TAG, "已配置网络：" + config.SSID);
+                val SSID = trimQuoteFromSSID(config.SSID)
+                var accessPoint: AccessPoint? = accessPoints[SSID]
+                if (accessPoint != null) {
+                    accessPoint.configured = true
+                    accessPoint.networkId = config.networkId
+                }
+            }
+        } else {
+            // TODO(yy) refreshWifiAccessPoints(context);
+        }
+
+        val connection = wifiManager.connectionInfo
+        if (connection != null) {
+//            Log.d(LOG_TAG, "Connected AP：" + connection.ssid)
+            val SSID = trimQuoteFromSSID(connection.ssid)
+            val accessPoint = accessPoints[SSID]
+            if (accessPoint != null) {
+                accessPoint.ip = connection.ipAddress
+                accessPoint.connected = true
+
+                // 获取 supplicantState
+                val supplicantState = connection.supplicantState
+                accessPoint.supplicantState = supplicantState?.toString() ?: ""
+
+                // 获取 detailed 状态
+                val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                val info = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+                if (info != null) {
+                    val state = info.detailedState
+                    accessPoint.detailedState = state?.toString() ?: ""
+                }
+            }
+        }
 
         return accessPoints
     }
 
-
+    private fun trimQuoteFromSSID(SSID: String): String {
+        return SSID.substring(1, SSID.length - 1)
+    }
 }
