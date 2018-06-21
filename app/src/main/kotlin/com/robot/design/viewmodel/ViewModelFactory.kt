@@ -23,12 +23,13 @@ import javax.inject.Inject
 class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
 
 
-
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             with(modelClass) {
                 when {
                     isAssignableFrom(DownloadViewModel::class.java) ->
                         DownloadViewModel()
+                    isAssignableFrom(WifiViewModel::class.java) ->
+                        WifiViewModel()
                     else -> IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
                 }
             } as T

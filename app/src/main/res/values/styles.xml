@@ -50,4 +50,10 @@
     <style name="downloadFileNameStyle" parent="ww_hw">
         <item name="android:textColor"></item>
     </style>
+    <style name="MySwitchTheme">
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorSwitchThumbNormal">#FFF1F1F1</item>
+        <item name="android:colorForeground">#FF2F2F2F</item>
+    </style>
+
 </resources>
