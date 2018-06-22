@@ -4,6 +4,7 @@ import android.net.wifi.ScanResult
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.robot.design.R
+import com.robot.design.widget.ConnectDialogFragment
 import com.robot.lighting.wifi.AccessPoint
 
 
@@ -18,7 +19,18 @@ import com.robot.lighting.wifi.AccessPoint
  * </pre>
  * @author majingze
  */
-class WifiAdapter(layoutResId: Int, data: List<AccessPoint>?) : BaseQuickAdapter<AccessPoint, BaseViewHolder>(layoutResId, data) {
+class WifiAdapter(layoutResId: Int, data: List<AccessPoint>?, onItemClickListener: (wifiItem: AccessPoint) -> Unit) : BaseQuickAdapter<AccessPoint, BaseViewHolder>(layoutResId, data) {
+
+    init {
+        setOnItemClickListener { adapter, view, position ->
+            val wifiItems = getData()
+            if (wifiItems.isEmpty()) return@setOnItemClickListener
+
+            val wifiItem = wifiItems[position]
+            if (!wifiItem.configured) return@setOnItemClickListener
+            onItemClickListener(wifiItem)
+        }
+    }
 
     override fun convert(helper: BaseViewHolder?, item: AccessPoint?) {
         if (helper == null || item == null) return

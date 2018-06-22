@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_50">
+    android:layout_height="@dimen/dp_50"
+    android:background="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/wifi_level"
@@ -28,7 +29,7 @@
         android:layout_alignRight="@id/wifi_ssid"
         android:layout_below="@id/wifi_ssid"
         android:text="已连接"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/H3"
         android:visibility="gone" />
 </RelativeLayout>

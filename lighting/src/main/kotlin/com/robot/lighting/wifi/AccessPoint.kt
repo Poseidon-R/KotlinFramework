@@ -2,6 +2,7 @@ package com.robot.lighting.wifi
 
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.Serializable
 
 
 /**
@@ -15,7 +16,7 @@ import org.json.JSONObject
  * </pre>
  * @author majingze
  */
-class AccessPoint(var SSID: String) {
+class AccessPoint(var SSID: String) : Serializable {
 
     var security = "" // 加密机制，取值见下面定义的常量
     var level: Int = 0 // 信号强度
@@ -58,5 +59,12 @@ class AccessPoint(var SSID: String) {
         val SECURITY_NONE = "none"
         val SECURITY_WEP = "WEP"
         val SECURITY_WPA = "WPA"
+
+//        WPA-PSK/WPA2-PSK(目前最安全家用加密)
+//        WPA/WPA2(较不安全)
+//        WEP(安全较差)
+//        AP(迄今最安全的)
+
+
     }
 }

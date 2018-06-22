@@ -12,6 +12,8 @@ import android.util.Log
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import org.apache.commons.lang3.StringUtils
+import android.net.wifi.WifiConfiguration.KeyMgmt
+import android.net.wifi.WifiConfiguration
 
 
 /**
@@ -118,9 +120,8 @@ class WifiService(val context: Context) {
             accessPoints.put(ap.SSID, ap)
         }
 
-//        Log.d(LOG_TAG, "Find APs: " + accessPoints.size)
+        //Log.d(LOG_TAG, "Find APs: " + accessPoints.size)
         // Log.d(LOG_TAG, "信号最大：" + maxLevel + " 信号最小：" + minLevel);
-
         val configuredNetworks = wifiManager.configuredNetworks // 会null!
         if (configuredNetworks != null) {
             for (config in configuredNetworks) {
@@ -165,4 +166,22 @@ class WifiService(val context: Context) {
     private fun trimQuoteFromSSID(SSID: String): String {
         return SSID.substring(1, SSID.length - 1)
     }
+
+//    /**
+//     * These values are matched in string arrays -- changes must be kept in sync
+//     */
+//    val SECURITY_NONE = 0
+//    val SECURITY_WEP = 1
+//    val SECURITY_PSK = 2
+//    val SECURITY_EAP = 3
+//
+//    fun getSecurity(config: WifiConfiguration): Int {
+//        if (config.allowedKeyManagement.get(KeyMgmt.WPA_PSK)) {
+//            return SECURITY_PSK
+//        }
+//        if (config.allowedKeyManagement.get(KeyMgmt.WPA_EAP) || config.allowedKeyManagement.get(KeyMgmt.IEEE8021X)) {
+//            return SECURITY_EAP
+//        }
+//        return if (config.wepKeys[0] != null) SECURITY_WEP else SECURITY_NONE
+//    }
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="wifiItem"
+            type="com.robot.lighting.wifi.AccessPoint" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="@dimen/dp_300"
+            android:layout_height="@dimen/dp_200"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/wifi_ssid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_25"
+            android:textColor="@color/black"
+            android:textSize="@dimen/H2"
+            android:text="@{wifiItem.SSID}"/>
+
+        <TextView
+            android:id="@+id/wifi_safe_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/wifi_ssid"
+            android:layout_below="@id/wifi_ssid"
+            android:layout_marginTop="@dimen/dp_25"
+            android:textColor="@color/black"
+            android:textSize="@dimen/H2"
+            android:text="安全"/>
+
+        <TextView
+            android:id="@+id/wifi_safe_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/wifi_ssid"
+            android:layout_below="@id/wifi_safe_tag"
+            android:layout_marginTop="@dimen/dp_2"
+            android:textColor="@color/captionBlack"
+            android:textSize="@dimen/H3"
+            android:text="@{wifiItem.security}"/>
+
+        <TextView
+            android:id="@+id/connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/wifi_safe_value"
+            android:layout_marginBottom="@dimen/dp_25"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_40"
+            android:text="连接"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/H3"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/connect"
+            android:layout_marginRight="@dimen/dp_40"
+            android:layout_toLeftOf="@id/connect"
+            android:text="取消"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/H3"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</layout>
