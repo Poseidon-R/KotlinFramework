@@ -84,6 +84,7 @@ class WifiService(val context: Context) {
     // 获取无线AP列表。返回的 MAP 是 SSID->AccessPoint. 注意 SSID 可能重复。
     fun listAccessPoints(context: Context): Map<String, AccessPoint> {
         val wifiManager = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        wifiManager.startScan()
         val scanResults = wifiManager.scanResults ?: return HashMap(0)
 
         var maxLevel = Integer.MIN_VALUE

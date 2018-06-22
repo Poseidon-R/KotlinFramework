@@ -9,7 +9,6 @@ import android.content.IntentFilter
 import android.databinding.ObservableField
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -17,7 +16,6 @@ import com.robot.design.App
 import com.robot.lighting.wifi.AccessPoint
 import com.robot.lighting.wifi.WifiService
 import io.reactivex.Observable
-import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -46,6 +44,8 @@ class WifiViewModel : AndroidViewModel(App.getApplication()) {
 
     var checked = ObservableField<Boolean>()
 
+    var wifiListHintTitle = ObservableField<String>()
+
 
     fun onStart() {
         val filter = IntentFilter()
@@ -65,10 +65,11 @@ class WifiViewModel : AndroidViewModel(App.getApplication()) {
         if (wifiService.isOpen()) {
             wifiService.closeWifi()
             stopSearch()
-            ToastUtils.showShort("关闭")
+            wifiListHintTitle.set("若要查看可用网络，请打开wifi！")
         } else {
             wifiService.openWifi()
-            ToastUtils.showShort("打开")
+            wifiListHintTitle.set("正在打开wifi...")
+            startSearchWifi()
         }
     }
 
@@ -81,13 +82,15 @@ class WifiViewModel : AndroidViewModel(App.getApplication()) {
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribeBy(
                                         onNext = {
+                                            if (!wifiService.isOpen()) return@subscribeBy
+                                            wifiListHintTitle.set("")
                                             val result = wifiService.listAccessPoints(getApplication()).map {
                                                 it.value
                                             }
-                                            Collections.sort(result) { p0, p1 ->
-                                                return@sort p1.levelGrade - p0.levelGrade
-                                            }
-                                            wifiResult.set(result)
+                                            val sortResult = result.sortedByDescending {
+                                                it.level
+                                            }.sortedByDescending { it.connected }
+                                            wifiResult.set(sortResult)
                                         },
                                         onError = {},
                                         onComplete = {}
@@ -117,12 +120,6 @@ class WifiViewModel : AndroidViewModel(App.getApplication()) {
 
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent == null) return
-//            val wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0)
-//            if (wifiState == WifiManager.WIFI_STATE_ENABLING) {
-//                ToastUtils.showShort("打开中...")
-//            } else if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-//                ToastUtils.showShort("关闭中...")
-//            }
 
             if (intent.action == WifiManager.SUPPLICANT_STATE_CHANGED_ACTION) {
                 //wifi连接

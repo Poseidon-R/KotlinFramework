@@ -34,6 +34,7 @@ class WifiAdapter(layoutResId: Int, data: List<AccessPoint>?) : BaseQuickAdapter
             else -> R.drawable.wifi_level1
         }
 
+        helper.setVisible(R.id.wifit_state, item.connected)
         helper.setImageResource(R.id.wifi_level, icon)
     }
 
