@@ -12,6 +12,11 @@ import com.robot.design.module.NetModule
 import com.robot.lighting.utils.MainBus
 import com.squareup.otto.ThreadEnforcer
 import java.io.File
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
+import com.orhanobut.logger.Logger.addLogAdapter
+
+
 
 
 /**
@@ -40,6 +45,7 @@ class App : Application() {
         mAppComponent = DaggerAppComponent.builder()
                 .appModule(AppModule(this))
                 .build()
+        Logger.addLogAdapter(AndroidLogAdapter())
     }
 
     fun getBusInstance() = mainBus

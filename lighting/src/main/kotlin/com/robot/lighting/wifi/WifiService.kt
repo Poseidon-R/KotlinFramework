@@ -166,7 +166,6 @@ class WifiService(val context: Context) {
     private fun trimQuoteFromSSID(SSID: String): String {
         return SSID.substring(1, SSID.length - 1)
     }
-
 //    /**
 //     * These values are matched in string arrays -- changes must be kept in sync
 //     */

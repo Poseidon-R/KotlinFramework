@@ -37,7 +37,9 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:2.5"
     provided 'javax.annotation:javax.annotation-api:1.2'
     implementation project(':lighting')
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 }
+
 kapt {
     generateStubs = true
 

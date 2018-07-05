@@ -3,18 +3,9 @@ package com.robot.design.ui
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import com.robot.design.R
-import com.robot.design.component.DaggerAppComponent
 import com.robot.design.databinding.ActivityDownloadBinding
 import com.robot.design.ext.obtainViewModel
-import com.robot.design.module.AppModule
 import com.robot.design.viewmodel.DownloadViewModel
-import com.robot.lighting.rest.download.DownloadInfo
-import com.robot.lighting.rest.download.DownloadState
-import com.robot.lighting.utils.MainBus
-import com.squareup.otto.Subscribe
-import kotlinx.android.synthetic.main.activity_download.*
-import javax.inject.Inject
-
 
 /**
  * <pre>

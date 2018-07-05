@@ -18,6 +18,10 @@ import android.view.View;
 
 import com.robot.lighting.R;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+
 /**
  * <pre>
  *     e-mail : majingze@shuangke.net.cn
@@ -111,6 +115,7 @@ public class LightingProgressbar extends View implements Runnable {
     public LightingProgressbar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttrs(attrs);
+
     }
 
     private void initAttrs(AttributeSet attrs) {

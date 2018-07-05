@@ -12,6 +12,7 @@ import android.net.NetworkInfo
 import android.net.wifi.WifiManager
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.orhanobut.logger.Logger
 import com.robot.design.App
 import com.robot.lighting.wifi.AccessPoint
 import com.robot.lighting.wifi.WifiService
@@ -90,6 +91,8 @@ class WifiViewModel : AndroidViewModel(App.getApplication()) {
                                             val sortResult = result.sortedByDescending {
                                                 it.level
                                             }.sortedByDescending { it.connected }
+                                            Logger.d(sortResult.toString())
+
                                             wifiResult.set(sortResult)
                                         },
                                         onError = {},

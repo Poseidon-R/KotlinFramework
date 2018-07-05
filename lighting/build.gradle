@@ -64,6 +64,8 @@ dependencies {
     api 'com.android.support:design:26.1.0'
     api 'com.squareup:otto:1.3.8'
     api 'com.google.dagger:dagger:2.5'
+    api 'com.orhanobut:logger:2.2.0'
+
     kapt "android.arch.persistence.room:compiler:1.1.0"
 
     kapt "com.google.dagger:dagger-compiler:2.5"

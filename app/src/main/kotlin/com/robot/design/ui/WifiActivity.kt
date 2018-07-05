@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
+import com.orhanobut.logger.Logger
 import com.robot.design.R
 import com.robot.design.databinding.ActivityWifiBinding
 import com.robot.design.ext.obtainViewModel
@@ -75,6 +76,5 @@ class WifiActivity : BaseActivity<ActivityWifiBinding>() {
     override fun getToolbarTitle(): String = "wifi管理"
 
     override fun getToolbar(): Toolbar = findViewById(R.id.toolbar)
-
 
 }

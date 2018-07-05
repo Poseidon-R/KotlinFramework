@@ -59,6 +59,7 @@ class DownloadViewModel : ViewModel(), DownloadListener {
 
 
     private fun getDownloadSpeed() {
+
         var mDisposable: Disposable
         Observable.intervalRange(1, 100000, 0, 100, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
