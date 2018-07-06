@@ -15,8 +15,7 @@ import java.io.File
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.Logger.addLogAdapter
-
-
+import com.robot.lighting.utils.ResUtils
 
 
 /**
@@ -39,6 +38,7 @@ class App : Application() {
         super.onCreate()
         app = this
         Utils.init(this)
+        ResUtils.init(this)
         mNetComponent = DaggerNetComponent.builder()
                 .netModule(NetModule("http://192.168.8.148:7204"))
                 .build()

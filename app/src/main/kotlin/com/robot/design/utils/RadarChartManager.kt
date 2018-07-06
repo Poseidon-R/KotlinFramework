@@ -15,4 +15,5 @@ import com.github.mikephil.charting.charts.RadarChart
  * @author majingze
  */
 class RadarChartManager(radarChart: RadarChart) {
+
 }
